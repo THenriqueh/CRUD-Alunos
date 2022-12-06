@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projetonttdata.CRUDAlunos.entities.Aluno;
+import com.projetonttdata.CRUDAlunos.dto.AlunoDTO;
 import com.projetonttdata.CRUDAlunos.services.AlunoService;
 
 @RestController
@@ -19,8 +19,8 @@ public class AlunoResource {
 	private AlunoService service;
 	
 	@GetMapping
-	public ResponseEntity <List<Aluno>> findAll(){
-		List<Aluno> list = service.findAll();
+	public ResponseEntity <List<AlunoDTO>> findAll(){
+		List<AlunoDTO> list = service.findAll();
 		
 		return ResponseEntity.ok().body(list);
 		
