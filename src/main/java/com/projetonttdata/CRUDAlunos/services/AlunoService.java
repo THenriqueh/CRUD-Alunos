@@ -33,5 +33,14 @@ public class AlunoService {
 		Aluno entity = obj.orElseThrow(()-> new EntityNotFoundException("Entity not found!"));	
 		return new AlunoDTO(entity);
 	}
+	@Transactional
+	public AlunoDTO insert(AlunoDTO dto) {
+		Aluno entity = new Aluno();
+		entity.setName(dto.getName());
+		entity.setEndereço(dto.getEndereco());
+		entity = repository.save(entity);
+		return new AlunoDTO(entity);
+		
+	}
 
 }
