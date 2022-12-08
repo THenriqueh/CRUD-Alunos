@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.projetonttdata.CRUDAlunos.dto.AlunoDTO;
 import com.projetonttdata.CRUDAlunos.entities.Aluno;
 import com.projetonttdata.CRUDAlunos.repositories.AlunoRepository;
+import com.projetonttdata.CRUDAlunos.services.exceptions.EntityNotFoundException;
 
 @Service
 public class AlunoService {
@@ -29,7 +30,7 @@ public class AlunoService {
 	@Transactional(readOnly = true)
 	public AlunoDTO findById(Integer id) {
 		Optional<Aluno> obj = repository.findById(id);
-		Aluno entity = obj.get();	
+		Aluno entity = obj.orElseThrow(()-> new EntityNotFoundException("Entity not found!"));	
 		return new AlunoDTO(entity);
 	}
 
