@@ -1,13 +1,13 @@
 package com.projetonttdata.CRUDAlunos.services;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,10 +23,10 @@ public class AlunoService {
 	private AlunoRepository repository;
 
 	@Transactional(readOnly = true)
-	public List<AlunoDTO> findAll() {
+	public Page<AlunoDTO> findAllPaged(PageRequest pageRequest) {
 
-		List<Aluno> list = repository.findAll();
-		return list.stream().map(x -> new AlunoDTO(x)).collect(Collectors.toList());
+		Page<Aluno> list = repository.findAll(pageRequest);
+		return list.map(x -> new AlunoDTO(x));
 
 	}
 
@@ -46,6 +46,7 @@ public class AlunoService {
 		return new AlunoDTO(entity);
 
 	}
+
 	@Transactional
 	public AlunoDTO update(Integer id, AlunoDTO dto) {
 		try {
@@ -61,8 +62,8 @@ public class AlunoService {
 
 	public void delete(Integer id) {
 		try {
-		repository.deleteById(id);
-		}catch(EmptyResultDataAccessException e) {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException("Id not found" + id);
 		}
 	}
