@@ -12,15 +12,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.projetonttdata.CRUDAlunos.services.exceptions.ResourceNotFoundException;
   
 @ControllerAdvice
-public class ResouceExceptionHandler {
+class ResourceExceptionHandler extends RuntimeException {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request){
 		StandardError err = new StandardError();
 		err.setTimestamp(Instant.now());
 		err.setStatus(HttpStatus.NOT_FOUND.value());
-		err.setError("Resource not found!");
+		err.setError("Id do aluno não encontrado!");
 		err.setPath(request.getRequestURI());
 		return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
-	}	
+	}
+
+
+
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,21 +29,26 @@ public class AlunoResource {
 	@Autowired
 	private AlunoService service;
 
+	@GetMapping("/search")
+	public ResponseEntity<Page<AlunoDTO>> findAll(
+												  @RequestParam("searchTerm") String searchTerm,
+												  @RequestParam(
+														  value = "page",
+														  required = false,
+														  defaultValue = "0") int page,
+												  @RequestParam(
+														  value = "size",
+														  required = false,
+														  defaultValue = "10") int size) {
+		return (ResponseEntity<Page<AlunoDTO>>) service.findAllPaged(searchTerm, page, size);
+	}
 	@GetMapping
-	public ResponseEntity<Page<AlunoDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "linePerPage", defaultValue = "5") Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC") String direction
 
-	) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-
-		Page<AlunoDTO> list = service.findAllPaged(pageRequest);
-		return ResponseEntity.ok().body(list);
-
+	public Page<AlunoDTO> getAll() {
+		return service.findAll();
 	}
 
-	@GetMapping(value = "/{id}")
+		@GetMapping(value = "/{id}")
 	public ResponseEntity<AlunoDTO> findById(@PathVariable Integer id) {
 		AlunoDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);

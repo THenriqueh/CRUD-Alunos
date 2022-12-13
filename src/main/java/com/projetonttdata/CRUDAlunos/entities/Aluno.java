@@ -18,16 +18,16 @@ public class Aluno implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
-	private String endereco;
+	private String email;
 	
 	
 	public Aluno() {
 	}
 
-	public Aluno(Integer id, String name, String endereço) {
+	public Aluno(Integer id, String name, String email) {
 		this.id = id;
 		this.name = name;
-		this.endereco = endereço;
+		this.email = this.email;
 	}
 
 	public Integer getId() {
@@ -46,17 +46,17 @@ public class Aluno implements Serializable {
 		this.name = name;
 	}
 
-	public String getEndereço() {
-		return endereco;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEndereço(String endereço) {
-		this.endereco = endereço;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(endereco, id, name);
+		return Objects.hash(email, id, name);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class Aluno implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Aluno other = (Aluno) obj;
-		return Objects.equals(endereco, other.endereco) && Objects.equals(id, other.id)
+		return Objects.equals(email, other.email) && Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name);
 	}
 	

@@ -9,23 +9,23 @@ public class AlunoDTO implements Serializable {
 
 	private Integer id;
 	private String name;
-	private String endereco;
+	private String email;
 
 	public AlunoDTO() {
 
 	}
 
-	public AlunoDTO(Integer id, String name, String endereco) {
+	public AlunoDTO(Integer id, String name, String email) {
 		this.id = id;
 		this.name = name;
-		this.endereco = endereco;
+		this.email = email;
 
 	}
 	
 	public AlunoDTO(Aluno entity) {
 		this.id = entity.getId();
 		this.name = entity.getName();
-		this.endereco = entity.getEndereço();
+		this.email = entity.getEmail();
 	}
 
 	public Integer getId() {
@@ -45,11 +45,11 @@ public class AlunoDTO implements Serializable {
 	}
 
 	public String getEndereco() {
-		return endereco;
+		return email;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
