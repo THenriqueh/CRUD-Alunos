@@ -4,9 +4,6 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +41,12 @@ public class AlunoResource {
 	}
 	@GetMapping
 
-	public Page<AlunoDTO> getAll() {
-		return service.findAll();
+	public Page<AlunoDTO> getAll(@RequestParam (required = false) String searchTerm,
+								 @RequestParam (required = false, defaultValue = "1") Integer page,
+								 @RequestParam (required = false, defaultValue = "10") Integer size) {
+		return service.findAll(searchTerm,
+		page,
+		size);
 	}
 
 		@GetMapping(value = "/{id}")

@@ -1,6 +1,8 @@
 package com.projetonttdata.CRUDAlunos.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -25,16 +27,22 @@ public class AlunoService {
 	private AlunoRepository repository;
 
 	public Page<AlunoDTO> findAll(String searchTerm,
-						int page,
-						int size) {
-			PageRequest pageRequest = PageRequest.of(
-					page,
-					size,
-					Sort.Direction.ASC,
-					"name");
+								  int page,
+								  int size) {
+		PageRequest pageRequest = PageRequest.of(
+				page,
+				size,
+				Sort.Direction.ASC,
+				"name");
 
-		return new PageImpl<Iterable<AlunoDTO>>(
-				repository.findAll(),
+		Page<Aluno> alunos = repository.findAll(pageRequest);
+
+		final List<AlunoDTO> alunosResponse = alunos.stream()
+				.map(AlunoDTO::new)
+				.collect(Collectors.toList());
+
+		return new PageImpl<>(
+				alunosResponse,
 				pageRequest, size);
 	}
 

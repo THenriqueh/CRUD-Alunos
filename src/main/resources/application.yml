@@ -1,12 +1,17 @@
 spring:
+  profiles:
+    active: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    url: jdbc:mysql://localhost:3306/springboot/tb_aluno?useTimezone=true&serverTimezone=UTC
-    password: Tha@llis123
+    username: ${DB_USER}
+    url: ${DB_URL}
+    password: ${DB_PASSWORD}
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
+  sql:
+    init:
+      mode: always
