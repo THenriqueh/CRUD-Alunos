@@ -5,20 +5,19 @@ import com.sun.istack.NotNull;
 public class Pages {
 
     @NotNull
-    private String term;
-
+    private String name;
     private Integer page = 1;
     private Integer size = 10;
 
     public Pages() {
     }
 
-    public String getTerm() {
-        return term;
+    public String getName() {
+        return name;
     }
 
-    public void setTerm(String term) {
-        this.term = term;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getPage() {

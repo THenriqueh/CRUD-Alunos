@@ -1,13 +1,10 @@
 package com.projetonttdata.CRUDAlunos.services;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.persistence.EntityNotFoundException;
-
+import com.projetonttdata.CRUDAlunos.dto.AlunoDTO;
+import com.projetonttdata.CRUDAlunos.entities.Aluno;
+import com.projetonttdata.CRUDAlunos.repositories.AlunoRepository;
 import com.projetonttdata.CRUDAlunos.resources.Pages;
-import org.HdrHistogram.PackedHistogram;
+import com.projetonttdata.CRUDAlunos.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -17,10 +14,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.projetonttdata.CRUDAlunos.dto.AlunoDTO;
-import com.projetonttdata.CRUDAlunos.entities.Aluno;
-import com.projetonttdata.CRUDAlunos.repositories.AlunoRepository;
-import com.projetonttdata.CRUDAlunos.services.exceptions.ResourceNotFoundException;
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AlunoService {
@@ -57,7 +54,7 @@ public class AlunoService {
 				"name");
 
 		return repository.search(
-				pages.getTerm().toLowerCase(),
+				pages.getName().toLowerCase(),
 				pageRequest);
 	}
 
