@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.projetonttdata.CRUDAlunos.resources.Pages;
+import org.HdrHistogram.PackedHistogram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -26,12 +28,10 @@ public class AlunoService {
 	@Autowired
 	private AlunoRepository repository;
 
-	public Page<AlunoDTO> findAll(String searchTerm,
-								  int page,
-								  int size) {
+	public Page<AlunoDTO> findAll(Pages pages) {
 		PageRequest pageRequest = PageRequest.of(
-				page,
-				size,
+				pages.getPage(),
+				pages.getSize(),
 				Sort.Direction.ASC,
 				"name");
 
@@ -43,22 +43,20 @@ public class AlunoService {
 
 		return new PageImpl<>(
 				alunosResponse,
-				pageRequest, size);
+				pageRequest, pages.getSize());
 	}
 
 
 	@Transactional(readOnly = true)
-	public Page<AlunoDTO> findAllPaged(String searchTerm,
-									   int page,
-									   int size) {
+	public Page<AlunoDTO> findAllPaged(Pages pages) {
 		PageRequest pageRequest = PageRequest.of(
-				page,
-				size,
+				pages.getPage(),
+				pages.getSize(),
 				Sort.Direction.ASC,
 				"name");
 
 		return repository.search(
-				searchTerm.toLowerCase(),
+				pages.getTerm().toLowerCase(),
 				pageRequest);
 	}
 

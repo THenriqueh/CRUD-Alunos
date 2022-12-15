@@ -1,23 +1,16 @@
 package com.projetonttdata.CRUDAlunos.resources;
 
-import java.net.URI;
-
+import com.projetonttdata.CRUDAlunos.dto.AlunoDTO;
+import com.projetonttdata.CRUDAlunos.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.projetonttdata.CRUDAlunos.dto.AlunoDTO;
-import com.projetonttdata.CRUDAlunos.services.AlunoService;
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/alunos")
@@ -27,26 +20,13 @@ public class AlunoResource {
 	private AlunoService service;
 
 	@GetMapping("/search")
-	public ResponseEntity<Page<AlunoDTO>> findAll(
-												  @RequestParam("searchTerm") String searchTerm,
-												  @RequestParam(
-														  value = "page",
-														  required = false,
-														  defaultValue = "0") int page,
-												  @RequestParam(
-														  value = "size",
-														  required = false,
-														  defaultValue = "10") int size) {
-		return (ResponseEntity<Page<AlunoDTO>>) service.findAllPaged(searchTerm, page, size);
+	public ResponseEntity<Page<AlunoDTO>> findAll(@Validated Pages pages) {
+		return (ResponseEntity<Page<AlunoDTO>>) service.findAllPaged(pages);
 	}
 	@GetMapping
 
-	public Page<AlunoDTO> getAll(@RequestParam (required = false) String searchTerm,
-								 @RequestParam (required = false, defaultValue = "1") Integer page,
-								 @RequestParam (required = false, defaultValue = "10") Integer size) {
-		return service.findAll(searchTerm,
-		page,
-		size);
+	public Page<AlunoDTO> getAll(@Validated Pages pages) {
+		return service.findAll(pages);
 	}
 
 		@GetMapping(value = "/{id}")
