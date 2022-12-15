@@ -29,6 +29,7 @@ public class AlunoService {
 	private AlunoRepository repository;
 
 	public Page<AlunoDTO> findAll(Pages pages) {
+
 		PageRequest pageRequest = PageRequest.of(
 				pages.getPage(),
 				pages.getSize(),
