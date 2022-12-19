@@ -79,7 +79,7 @@ public class AlunoService {
 	@Transactional
 	public AlunoDTO update(Integer id, AlunoDTO dto) {
 		try {
-			Aluno entity = new Aluno();
+			Aluno entity = repository.getReferenceById(id);
 			entity.setName(dto.getName());
 			entity.setEmail(dto.getEndereco());
 			entity = repository.save(entity);

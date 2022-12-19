@@ -1,10 +1,6 @@
 package com.projetonttdata.CRUDAlunos.resources;
 
-import com.sun.istack.NotNull;
-
 public class Pages {
-
-    @NotNull
     private String name;
     private Integer page = 1;
     private Integer size = 10;
