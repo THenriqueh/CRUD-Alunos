@@ -13,6 +13,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/alunos")
+@CrossOrigin("*")
 public class AlunoResource {
 
     @Autowired
@@ -20,7 +21,7 @@ public class AlunoResource {
 
     @GetMapping("/search")
     public ResponseEntity<Page<AlunoDTO>> findAll(@Validated Pages pages) {
-        return (ResponseEntity<Page<AlunoDTO>>) service.findAllPaged(pages);
+        return (ResponseEntity<Page<AlunoDTO>>) service.findAll(pages);
     }
 
     @GetMapping

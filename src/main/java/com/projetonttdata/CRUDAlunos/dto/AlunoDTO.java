@@ -44,7 +44,7 @@ public class AlunoDTO implements Serializable {
 		this.name = name;
 	}
 
-	public String getEndereco() {
+	public String getEmail() {
 		return email;
 	}
 

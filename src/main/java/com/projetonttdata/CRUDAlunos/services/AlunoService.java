@@ -27,42 +27,46 @@ public class AlunoService {
 
 	public Page<AlunoDTO> findAll(Pages pages) {
 
-		PageRequest pageRequest = PageRequest.of(
-				pages.getPage(),
-				pages.getSize(),
-				Sort.Direction.ASC,
-				"name");
+		try {
+			PageRequest pageRequest = PageRequest.of(
+					pages.getPage(),
+					pages.getSize(),
+					Sort.Direction.ASC,
+					"name");
 
-		Page<Aluno> alunos = repository.findAll(pageRequest);
+			Page<Aluno> alunos = repository.findAll(pageRequest);
 
-		final List<AlunoDTO> alunosResponse = alunos.stream()
-				.map(AlunoDTO::new)
-				.collect(Collectors.toList());
+			final List<AlunoDTO> alunosResponse = alunos.stream()
+					.map(AlunoDTO::new)
+					.collect(Collectors.toList());
 
-		return new PageImpl<>(
-				alunosResponse,
-				pageRequest, pages.getSize());
+			return new PageImpl<>(
+					alunosResponse,
+					pageRequest, pages.getSize());
+		} catch (NullPointerException e) {
+			throw new ResourceNotFoundException("Nome do aluno não encontrado");
+		}
 	}
 
+		public Page<AlunoDTO> findAllPaged (Pages pages){
+			PageRequest pageRequest = PageRequest.of(
+					pages.getPage(),
+					pages.getSize(),
+					Sort.Direction.ASC,
+					"name");
 
-	@Transactional(readOnly = true)
-	public Page<AlunoDTO> findAllPaged(Pages pages) {
-		PageRequest pageRequest = PageRequest.of(
-				pages.getPage(),
-				pages.getSize(),
-				Sort.Direction.ASC,
-				"name");
-
-		return repository.search(
-				pages.getName().toLowerCase(),
-				pageRequest);
-	}
+			return repository.search(
+					pages.getName().toLowerCase(),
+					pageRequest);
+		}
 
 
-	@Transactional(readOnly = true)
+
+
+
 	public AlunoDTO findById(Integer id) {
 		Optional<Aluno> obj = repository.findById(id);
-		Aluno entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found!"));
+		Aluno entity = obj.orElseThrow(() -> new ResourceNotFoundException("Aluno de id" + id + "não encontrado"));
 		return new AlunoDTO(entity);
 	}
 
@@ -70,7 +74,7 @@ public class AlunoService {
 	public AlunoDTO insert(AlunoDTO dto) {
 		Aluno entity = new Aluno();
 		entity.setName(dto.getName());
-		entity.setEmail(dto.getEndereco());
+		entity.setEmail(dto.getEmail());
 		entity = repository.save(entity);
 		return new AlunoDTO(entity);
 
@@ -81,7 +85,7 @@ public class AlunoService {
 		try {
 			Aluno entity = repository.getReferenceById(id);
 			entity.setName(dto.getName());
-			entity.setEmail(dto.getEndereco());
+			entity.setEmail(dto.getEmail());
 			entity = repository.save(entity);
 			return new AlunoDTO(entity);
 		} catch (EntityNotFoundException e) {
