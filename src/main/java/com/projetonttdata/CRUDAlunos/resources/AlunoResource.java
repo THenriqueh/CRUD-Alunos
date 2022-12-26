@@ -2,7 +2,6 @@ package com.projetonttdata.CRUDAlunos.resources;
 
 import com.projetonttdata.CRUDAlunos.dto.AlunoDTO;
 import com.projetonttdata.CRUDAlunos.services.AlunoService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +11,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
-@RestController
+@RestController(value = "HttpGet")
 @RequestMapping(value = "/alunos")
 @CrossOrigin("*")
-@Api(value = "CRUD-Alunos")
 
 public class AlunoResource {
 

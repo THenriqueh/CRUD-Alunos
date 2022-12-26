@@ -1,4 +1,12 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
+      show-actuator: 'true'
+
   datasource:
     driverClassName: org.h2.Driver
     password:
