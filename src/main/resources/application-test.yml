@@ -6,7 +6,6 @@ spring:
     swagger-ui:
       path: /swagger-ui.html
       show-actuator: 'true'
-
   datasource:
     driverClassName: org.h2.Driver
     password:
