@@ -1,0 +1,209 @@
+---
+openapi: 3.0.1
+info:
+  title: CRUD Alunos
+  description: CRUD de Alunoss
+  version: '1.0'
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+- url: http://localhost:8081
+  description: Generated server url
+
+paths:
+  "/alunos/{id}":
+    get:
+      tags:
+      - aluno-resource
+      operationId: findById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/AlunoDTO"
+    put:
+      tags:
+      - aluno-resource
+      operationId: update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AlunoDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/AlunoDTO"
+    delete:
+      tags:
+      - aluno-resource
+      operationId: delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/AlunoDTO"
+  "/alunos":
+    get:
+      tags:
+      - aluno-resource
+      operationId: getAll
+      parameters:
+      - name: pages
+        in: query
+        required: true
+        schema:
+          "$ref": "#/components/schemas/Pages"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PageAlunoDTO"
+    post:
+      tags:
+      - aluno-resource
+      operationId: insert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AlunoDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/AlunoDTO"
+  "/alunos/search":
+    get:
+      tags:
+      - aluno-resource
+      operationId: findAll
+      parameters:
+      - name: pages
+        in: query
+        required: true
+        schema:
+          "$ref": "#/components/schemas/Pages"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PageAlunoDTO"
+components:
+  schemas:
+    AlunoDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        email:
+          type: string
+    Pages:
+      type: object
+      properties:
+        name:
+          type: string
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+    PageAlunoDTO:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            "$ref": "#/components/schemas/AlunoDTO"
+        sort:
+          "$ref": "#/components/schemas/SortObject"
+        first:
+          type: boolean
+        last:
+          type: boolean
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          "$ref": "#/components/schemas/PageableObject"
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          "$ref": "#/components/schemas/SortObject"
+        pageSize:
+          type: integer
+          format: int32
+        pageNumber:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean

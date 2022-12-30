@@ -7,8 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-@SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "CRUD Alunos", version = "1.0", description = "CRUD de Alunoss"))
+@SpringBootApplication(scanBasePackages = "com.projetonttdata.CRUDAlunos")
+//@OpenAPIDefinition(info = @Info(title = "CRUD Alunos", version = "1.0", description = "CRUD de Alunoss"))
 public class CrudAlunosApplication{
 
 		public static void main(String[]args) {
