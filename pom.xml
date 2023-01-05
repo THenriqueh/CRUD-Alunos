@@ -94,6 +94,14 @@
     </dependencies>
 
     <build>
+
+            <resources>
+                <resource>
+                    <directory>src/main/resources</directory>
+                    <filtering>true</filtering>
+                </resource>
+            </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.openapitools</groupId>
@@ -115,7 +123,7 @@
                             <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                             <output>${project.build.directory}/generated-sources</output>
                             <configOptions>
-                                <dateLibrary>java8</dateLibrary>
+                                <dateLibrary>java11</dateLibrary>
                                 <interfaceOnly>true</interfaceOnly>
                             </configOptions>
                         </configuration>
