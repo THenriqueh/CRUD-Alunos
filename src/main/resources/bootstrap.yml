@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: crud-alunos
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  cloud:
+    config:
+      uri: https://github.com/THenriqueh/CRUD-Config
+
+

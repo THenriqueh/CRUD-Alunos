@@ -22,7 +22,7 @@ public class Aluno implements Serializable {
 	public Aluno(Integer id, String name, String email) {
 		this.id = id;
 		this.name = name;
-		this.email = this.email;
+		this.email = email;
 	}
 
 	public Integer getId() {

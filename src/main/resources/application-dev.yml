@@ -10,14 +10,14 @@ spring:
     swagger-ui:
       path: /swagger-ui.html
       show-actuator: 'true'
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: create
+#  datasource:
+#    url: ${DB_URL}
+#    username: ${DB_USER}
+#    password: ${DB_PASSWORD}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
 management:
   server:
     port: 9091
